@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BinarySearch.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">se320-homework1</a> &gt; <a href="index.source.html" class="el_package">edu.drexel.se320</a> &gt; <span class="el_source">BinarySearch.java</span></div><h1>BinarySearch.java</h1><pre class="source lang-java linenums">package edu.drexel.se320;
+
+import java.util.Arrays;
+import java.util.NoSuchElementException;
+
+<span class="fc" id="L6">public class BinarySearch {</span>
+
+    // DO NOT MODIFY THIS SIGNATURE
+    // This includes the protected modifier; the autograder currently relies
+    // on a combination of overloading and visibility hacks to swap out your
+    // code at runtime to test your test suite.
+    protected static &lt;T extends Comparable&lt;T&gt;&gt; int binarySearchImplementation(T[] array, T elem) {
+        // TODO: Implement binary search here. The signature above sets you up to ensure the array elements have a compareTo method
+        // The code below here is just so the project will compile out of the box; go ahead and delete these.
+        int size;
+        int middle;
+        int result;
+        try {
+<span class="fc" id="L19">            size = array.length;</span>
+<span class="fc" id="L20">            middle = size / 2;</span>
+<span class="fc" id="L21">            result = array[middle].compareTo(elem);</span>
+
+<span class="fc" id="L23">        } catch (IndexOutOfBoundsException e1) {</span>
+<span class="fc" id="L24">            throw new NoSuchElementException(&quot;Element not found in array&quot;);</span>
+        }
+<span class="fc" id="L26">        catch (Exception e2) {</span>
+<span class="fc" id="L27">            throw new IllegalArgumentException(&quot;Illegal argument given&quot;);</span>
+<span class="fc" id="L28">        }</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            if (size &gt; 1) {</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">                 if (middle + 1 == size) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">                    if (array[middle - 1].compareTo(array[middle]) &gt; 0) {</span>
+<span class="fc" id="L32">                        throw new RuntimeException(&quot;Array is not sorted&quot;);</span>
+                    }
+                } else {
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                    if (array[middle].compareTo(array[middle + 1]) &gt; 0) {</span>
+<span class="fc" id="L36">                        throw new RuntimeException(&quot;Array is not sorted&quot;);</span>
+                    }
+                }
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            } else if (!(array[0].equals(elem))) {</span>
+<span class="fc" id="L40">                throw new NoSuchElementException(&quot;Element not found in array&quot;);</span>
+            }
+<span class="fc bfc" id="L42" title="All 2 branches covered.">            if (result == 0) {</span>
+<span class="fc" id="L43">                return middle;</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            } else if (result &lt; 0) {</span>
+<span class="fc" id="L45">                T[] newArray = Arrays.copyOfRange(array, middle, size);</span>
+<span class="fc" id="L46">                return middle + binarySearchImplementation(newArray, elem);</span>
+            } else {
+<span class="fc" id="L48">                T[] newArray = Arrays.copyOfRange(array, 0, middle);</span>
+<span class="fc" id="L49">                return binarySearchImplementation(newArray, elem);</span>
+            }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
